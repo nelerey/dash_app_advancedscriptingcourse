@@ -1,0 +1,21 @@
+name: dash-env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python<3.9
+  - pandas
+  - netcdf4
+  - bottleneck
+  - xarray
+  - matplotlib
+  - cartopy
+  - jupyter
+  - plotly
+  - nc-time-axis
+  - seaborn
+  - dask
+  - jupyterlab
+  - dash
+  - plotly
+prefix: ~/anaconda3/envs/dash-env
