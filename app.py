@@ -191,6 +191,7 @@ app.layout = html.Div([
     dbc.Row(dbc.Col(
               project_info
         )),
+    html.Br(),
     # main body: graph and text
     dbc.Row([
         # draw some maps
