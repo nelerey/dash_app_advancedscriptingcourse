@@ -38,9 +38,9 @@ tab1_content = dbc.Card(
                 html.B("The figure on the right shows the fraction (%) of time in three simulated periods (columns) "
                        "that the preprocessed UKCP18 regional climate simulations (RCM) are experiencing droughts of "
                        "three different categories (rows)"),
-                " according to either the Standardized Precipitation Index (SPI; McKee et al. (1993))"
-                "or the Standardized Precipitation Evaporation Index (SPEI; Vicente-Serrano, (2009))."
-                " Standardized indices allow us to compare dryness across locations with very different normal"
+                " according to either the Standardized Precipitation Index (SPI; McKee et al., 1993) "
+                "or the Standardized Precipitation Evaporation Index (SPEI; Vicente-Serrano et al., 2009)."
+                " Standardized indices allow us to compare dryness across locations with very different normal "
                 "moisture levels (for example, the west and east of the UK), as dryness (or wetness) is expressed in "
                 "standard deviations away from what is normal in a set baseline period for that location. "
                 "The SPI only includes atmospheric moisture supply (precipitation), while the SPEI "
@@ -65,17 +65,30 @@ tab2_content = dbc.Card(
     dbc.CardBody(
         [
             html.P([html.B("This week, ") ,"I automated the following steps from my current workflow where I was previously "
-                   "using Ctrl+C Ctrl+V:"
-                   "1. Creating SLURM batch job submission script templates, with inputs specifying the job name,"
-                   " whether it is an array job and whether python is used." 
-                   "2. Creating SLURM batch job scripts (using the above) for the same operation on different sets of files."
-                   "3. Creating the same set of figures for different sets of files."
-                   "These bash scripts can be found in the following GitHub repository: https://github.com/nelerey/bash_utils"], # TODO insert github link
+                   "using Ctrl+C Ctrl+V, and applied this on UEA\'s HPC system to generate the data visualized in the graph on the right:",
+                   html.Ul([html.Li("Creating SLURM batch job submission script templates, with inputs specifying the job name, whether it is an array job and whether python is used"),
+                            html.Li("Creating SLURM batch job scripts (using the above) for the same operation on different sets of files."),
+                            html.Li("Creating the same set of figures for different sets of files.")]),
+                   "These bash scripts can be found in this", html.A([" GitHub repository. "], href="https://github.com/nelerey/bash_utils", )
+                    ], # TODO insert github link
                    className="card-text"),
-            html.P("Aside from this, for the creation of the data and figures shown on the right and this app,"
-                   " the following commands learnt this week were very helpful to manipulate and transfer files:"
-                   "seq, rsync, tar, mv, cp, ", className="card-text"),
-            html.P([html.B("Further in my project, "), "Further in my project, I will use ensembles of "],  # TODO describe future workflow and how I'll automnate the living shit out of it
+            html.P(["Aside from this, for the creation of the data and figures shown on the right and this app,"
+                   " many commands learnt this week were very helpful to manipulate and transfer files: ",
+                   html.B("seq"),", ", html.B("rsync"), ", ", html.B("tar"), ", ", html.B("tail"), "..."]
+                   , className="card-text"),
+            html.P([html.B("Later in my project, "), "I will make much more extensive use of bash scripting when start "
+                    "working with hydrological models. The bash scripting skills I learned this week (and will further develop)"
+                    " will be extremely useful for the following (non-exhaustive!) list of tasks:",
+                    html.Ul([
+                        html.Li(["Generate input files for the different hydrological models based on different forcing"
+                                 " datasets, for different catchments. "]),
+                        html.Li(["Generate text files that define the structure of a hydrological model with the FUSE modular framework (Clark et al., 2008)"],),
+                        html.Li(["Automatically calibrate the selected hydrological models for a number of catchments in East Anglia and retain a number of good parameter sets"]),
+                        html.Li(["Automatically run the hydrological models with different parameter sets to obtain an ensemble of "
+                                 "streamflow simulations for different catchments"]),
+                        html.Li(["Connect different parts of this chain"]),
+                    ]),
+                    ],  # TODO describe future workflow and how I'll automnate the living shit out of it
                    className="card-text")
         ]
     ),
@@ -96,7 +109,6 @@ tab3_content = dbc.Card(
             html.P(["McKee, T. B., Doesken, N. J., & Kleist, J. (1993). The relationship of drought frequency and duration to time scales. In Proceedings of the 8th Conference on Applied Climatology (Vol. 17, No. 22, pp. 179-183).", html.Br() ,
                    "Vicente-Serrano, S. M., Beguería, S., & López-Moreno, J. I. (2009). A multiscalar drought index sensitive to global warming: the standardized precipitation evapotranspiration index. Journal of climate, 23(7), 1696-1718.", html.Br() ,
                    "Clark, M. P., Slater, A. G., Rupp, D. E., Woods, R. A., Vrugt, J. A., Gupta, H. V., ... & Hay, L. E. (2008). Framework for Understanding Structural Errors (FUSE): A modular framework to diagnose differences between hydrological models. Water Resources Research, 44(12).",html.Br() ,
-                   "Pushpalatha, R., Perrin, C., Le Moine, N., Mathevet, T., & Andréassian, V. (2011). A downward structural sensitivity analysis of hydrological models to improve low-flow simulation. Journal of Hydrology, 411(1-2), 66-76.",html.Br() ,
                    "Met Office Hadley Centre (2018): UKCP18 Regional Projections on a 12km grid over the UK for 1980-2080. Centre for Environmental Data Analysis, 14 February 2021. https://catalogue.ceda.ac.uk/uuid/589211abeb844070a95d061c8cc7f604",html.Br() ],
                    className="card-text")
         ]
@@ -143,20 +155,23 @@ input_panel = dbc.FormGroup(
 project_info = dbc.Card(
     dbc.CardBody(
         [html.H5("Project summary"),
-            html.P("Extreme droughts can cause enormous ecological and economic damage, and are expected to "
+            html.P(["Extreme droughts can cause enormous ecological and economic damage, and are expected to "
                    "become more severe in some regions due to climate change. For water managers, it is "
                    "crucial to understand extreme droughts and how they are projected to change compared "
                    "to previous droughts, in order to plan for resilience to these events. "
                    "In this PhD project, which is funded on a 50/50 basis by the University of East Anglia and"
-                   "the water company Anglian Water, I aim to increase"
-                   "understanding of future extreme droughts by answering the following research questions: "
-                   "1.	How are properties (severity, frequency, extent and duration) of extreme drought properties expected to change due to climate change?"
-                   "2.	How do the hydrometeorological processes involved in drought propagation contribute to changes in drought severity, frequency, extent and duration? "
-                   "3.  How is climate change expected to influence the impacts of extreme and severe droughts in (simple and more integrated) water resources systems? "
+                   "the water company Anglian Water, I aim to increase our "
+                   "understanding of future extreme droughts by answering the following",
+                   html.B(" research questions: "),
+                   html.Ol([
+                       html.Li("How are properties (severity, frequency, extent and duration) of extreme drought properties expected to change due to climate change?"),
+                       html.Li("How do the hydrometeorological processes involved in drought propagation contribute to changes in drought severity, frequency, extent and duration? "),
+                       html.Li("How is climate change expected to influence the impacts of extreme and severe droughts in (simple and more integrated) water resources systems? "),
+                   ]),
                    "For this, I make use of the UKCP18 regional climate projections (Met Office, 2018) as well as"
                    " thousands of years of simulated weather as well as an ensemble of hydrological "
                    "(and water resources) models."
-                   , className="card-text")]
+                   ], className="card-text")]
     ),
     className="mt-3",
     color='primary', inverse=True
