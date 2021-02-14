@@ -50,23 +50,29 @@ tab1_content = dbc.Card(
                 className="card-text"),
             html.P([
                 html.B("The figure on the right shows the fraction (%) of time in three simulated periods (columns) "
-                       "that the preprocessed UKCP18 regional climate simulations (RCM) are experiencing droughts of "
+                       "that the (preprocessed) UKCP18 regional climate model (RCM) simulations are experiencing droughts of "
                        "three different categories (rows)"),
                 " according to either the Standardized Precipitation Index (SPI; McKee et al., 1993) "
                 "or the Standardized Precipitation Evaporation Index (SPEI; Vicente-Serrano et al., 2009)."
-                " Standardized indices allow us to compare dryness across locations with very different normal "
-                "moisture levels (for example, the west and east of the UK), as dryness (or wetness) is expressed in "
-                "standard deviations away from what is normal in a set baseline period for that location. "
-                "The SPI only includes atmospheric moisture supply (precipitation), while the SPEI "
+                " Standardized indices allow us to compare dryness across locations with different normal "
+                "moisture levels, as dryness (or wetness) is expressed in how many "
+                "standard deviations the current condition is removed from what is normal in a certain baseline period "
+                "for a specific location. "
+                "The SPI only considers atmospheric moisture supply (precipitation), while the SPEI "
                 "also includes atmospheric moisture demand (potential evaporation).", html.Br(), html.Br(),
-                "In general, all ensemble members agree on increased time spent in (extremely) dry conditions."
+                "In general, all ensemble members agree on increased time spent in (extremely) dry conditions in England towards the future"
+                " under the pessimistic RCP8.5 scenario, but there are strong regional differences."
                 " When comparing SPI and SPEI, it is clear that a strong projected increase in "
                 "evaporation leads to much stronger increases in time spent in (extreme) drought if we rely on SPEI. "
-                "An ensemble of hydrological models will help me find out what this means for the propagation of "
-                "these droughts to water resources. There are large differences between the UKCP18 RCM"
-                "ensemble members.", html.Br(),html.Br(),
-                "Play around with the figure controls below and see for yourself! Please note that this analysis is "
-                "in a very early stage and it is not unrealistic these results may undergo slight changes."]
+                "Later, an ensemble of hydrological (and water resource) models will help me find out what this means "
+                "for the propagation of "
+                "these droughts to water resources, and how SPI and SPEI compare to projected hydrological droughts. "
+                "There are large differences between the UKCP18 RCM "
+                "ensemble members, showing that the climate simulations are a large source of uncertainty for "
+                "hydrological impact projections .", html.Br(),html.Br(),
+                "Play around with the figure controls below and see for yourself!", html.Br(), html.Br(),
+                " Please note that this analysis is "
+                "in a very early stage and it is not unrealistic these results may undergo changes."]
                 ,
                 className="card-text")
         ]
@@ -86,11 +92,12 @@ tab2_content = dbc.Card(
                    "These bash scripts can be found in this", html.A([" GitHub repository. "], href="https://github.com/nelerey/bash_utils", )
                     ], # TODO insert github link
                    className="card-text"),
-            html.P(["Aside from this, for the creation of the data and figures shown on the right and this app,"
-                   " many commands learnt this week were very helpful to manipulate and transfer files: ",
-                   html.B("seq"),", ", html.B("rsync"), ", ", html.B("tar"), ", ", html.B("tail"), "..."]
+            html.P(["Aside from this, for the creation of the data and figures shown and for writing this app,"
+                   " many bash commands and structures learnt this week were very helpful to manipulate and transfer "
+                    "files, such as ", html.B("for loops"), ", ",
+                    html.B("seq"),", ", html.B("rsync"), ", ", html.B("tar"), ", ", html.B("tail"), "..."]
                    , className="card-text"),
-            html.P([html.B("Later in my project, "), "I will make much more extensive use of bash scripting when start "
+            html.P([html.B("Later in my project, "), "I will make much more extensive use of bash scripting when "
                     "working with hydrological models. The bash scripting skills I learned this week (and will further develop)"
                     " will be extremely useful for the following (non-exhaustive!) list of tasks:",
                     html.Ul([
@@ -103,7 +110,17 @@ tab2_content = dbc.Card(
                         html.Li(["Connect different parts of this chain"]),
                     ]),
                     ],  # TODO describe future workflow and how I'll automnate the living shit out of it
-                   className="card-text")
+                   className="card-text"),
+            html.P([
+                "Because of the size of the datasets and the computational demands of the operations involved with "
+                "this work, most of my work is done on HPC systems. "
+                "Generally, I develop code locally on small toy datasets on my laptop, check if it works, "
+                "push it to Github, log onto the hpc, pull the changes from Github and submit a SLURM batch job (array) "
+                "that runs the code on the larger, \"real\" datasets. "
+                "When I need to make (more complicated) figures, the datasets containing the result of an analysis "
+                "are transferred to my laptop where I make the figures. I started automating elements of this workflow "
+                "this week, but there is room for improvement."
+            ])
         ]
     ),
     className="mt-3",
@@ -116,8 +133,8 @@ tab3_content = dbc.Card(
         [
             html.P(["This interactive poster was made in Plotly Dash, with helpful tips & tricks from Victor Sonck.",
                    html.Br(),
-                   "Theme: https://bootswatch.com/sandstone/.", html.Br(),
-                   "You can find this app on GitHub: https://github.com/nelerey/dash_app_advancedscriptingcourse"],  # TODO if time: github button
+                   "Theme: ", html.A("https://bootswatch.com/sandstone/.", href="https://bootswatch.com/sandstone/"), html.Br(),
+                   "You can find this app on", html.A("GitHub.", href="https://github.com/nelerey/dash_app_advancedscriptingcourse")],
                    className="card-text"),
             html.H5("References:"),
             html.P(["McKee, T. B., Doesken, N. J., & Kleist, J. (1993). The relationship of drought frequency and duration to time scales. In Proceedings of the 8th Conference on Applied Climatology (Vol. 17, No. 22, pp. 179-183).", html.Br() ,
@@ -173,17 +190,17 @@ project_info = dbc.Card(
                    "become more severe in some regions due to climate change. For water managers, it is "
                    "crucial to understand extreme droughts and how they are projected to change compared "
                    "to previous droughts, in order to plan for resilience to these events. "
-                   "In this PhD project, which is funded on a 50/50 basis by the University of East Anglia and"
+                   "In this PhD project, which is funded on a 50/50 basis by the University of East Anglia and "
                    "the water company Anglian Water, I aim to increase our "
                    "understanding of future extreme droughts by answering the following",
                    html.B(" research questions: "),
                    html.Ol([
-                       html.Li("How are properties (severity, frequency, extent and duration) of extreme drought properties expected to change due to climate change?"),
+                       html.Li("How are properties (severity, frequency, extent and duration) of extreme droughts expected to change due to climate change?"),
                        html.Li("How do the hydrometeorological processes involved in drought propagation contribute to changes in drought severity, frequency, extent and duration? "),
                        html.Li("How is climate change expected to influence the impacts of extreme and severe droughts in (simple and more integrated) water resources systems? "),
                    ]),
-                   "For this, I make use of the UKCP18 regional climate projections (Met Office, 2018) as well as"
-                   " thousands of years of simulated weather as well as an ensemble of hydrological "
+                   "For this, I make use of the UKCP18 regional climate projections (Met Office, 2018),"
+                   " thousands of years of simulated weather and an ensemble of hydrological "
                    "(and water resources) models."
                    ], className="card-text")]
     ),
@@ -237,13 +254,14 @@ app.layout = html.Div([
             dcc.Graph(id='heatmap-subplots'), width=6,
         ),
     ]),dbc.Row([
+        dbc.Col([], width=3),
         dbc.Col([html.Img(src='data:image/png;base64,{}'.format(encoded_images['img_uea'].decode()),
                           style={'height': img_height_bottom})]),
         dbc.Col([html.Img(src='data:image/png;base64,{}'.format(encoded_images['img_acws'].decode()),
                           style={'height': img_height_bottom})]),
         dbc.Col([html.Img(src='data:image/png;base64,{}'.format(encoded_images['img_aw'].decode()),
                           style={'height': img_height_bottom})]),
-        dbc.Col([], width=6),
+        dbc.Col([], width=3),
     ],
     ),
     html.Br()
