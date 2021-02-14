@@ -21,13 +21,26 @@ import dash_bootstrap_components as dbc
 import plotly.graph_objs as go
 from plotly.subplots import make_subplots
 
+import base64  # only needed to include images
+
 #
 external_stylesheets = [dbc.themes.SANDSTONE]
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-server = app.server
+server = app.server   # necessary for deployment on heroku with gunicorn
 
-# text tab contents (this is ugly here)
+# images are more work than expected:
+img_paths = dict(
+    img_dash='img/Plotly_Dash_logo.png',
+    img_uea="img/uea_pink_tlogo.png",
+    img_aw="img/anglian_water_loveeverydrop_hor_tlogo.png",
+    img_acws="img/anglian_centre_for_water_studies_tlogo.png",
+    img_github="img/GitHub-Mark-64px.png")
+encoded_images = {key: base64.b64encode(open(value, 'rb').read()) for key, value in img_paths.items()}
+img_height_bottom = 90
+img_height_top = 50
+
+# text tab contents
 tab1_content = dbc.Card(
     dbc.CardBody(
         [
@@ -181,12 +194,22 @@ project_info = dbc.Card(
 
 # Set up the app layout
 app.layout = html.Div([
+    html.Br(),
+
+
+
     # header with project explanation box
     dbc.Row(
-        [dbc.Col(  # app title and subtitle (~ sci poster). try to fit logos (TODO). also todo make big
-            [html.H1('SCRIPTING FOR DROUGHT RESILIENCE', className="display-3", style={"text-align": "center"}),
-             html.H4(children='Nele Reyniers, University of East Anglia', style={"text-align": "center"})]),
-            ]
+        [dbc.Col(  # app title and subtitle (~ sci poster).
+            [html.H1('SCRIPTING FOR DROUGHT RESILIENCE', className="display-3", style={"text-align": "left"}),
+             html.H4(children='Nele Reyniers, University of East Anglia', style={"text-align": "left"})],
+            width=10),
+            dbc.Col([dbc.Row(html.Img(src='data:image/png;base64,{}'.format(encoded_images['img_dash'].decode()),
+                                      style={'height': img_height_top*2, 'align': 'right'})),
+                     dbc.Row([html.Img(src='data:image/png;base64,{}'.format(encoded_images['img_github'].decode()),
+                                       style={'height': img_height_top, 'align': 'right'})])],
+                    width=2),
+        ]
     ),
     dbc.Row(dbc.Col(
               project_info
@@ -212,7 +235,17 @@ app.layout = html.Div([
         dbc.Col(
             dcc.Graph(id='heatmap-subplots'), width=6,
         ),
-    ])
+    ]),dbc.Row([
+        dbc.Col([html.Img(src='data:image/png;base64,{}'.format(encoded_images['img_uea'].decode()),
+                          style={'height': img_height_bottom})]),
+        dbc.Col([html.Img(src='data:image/png;base64,{}'.format(encoded_images['img_acws'].decode()),
+                          style={'height': img_height_bottom})]),
+        dbc.Col([html.Img(src='data:image/png;base64,{}'.format(encoded_images['img_aw'].decode()),
+                          style={'height': img_height_bottom})]),
+        dbc.Col([], width=6),
+    ],
+    ),
+    html.Br()
 ], style={"margin-left": 30, "margin-right": 30})
 
 @app.callback(
