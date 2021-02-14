@@ -206,8 +206,9 @@ app.layout = html.Div([
             width=10),
             dbc.Col([dbc.Row(html.Img(src='data:image/png;base64,{}'.format(encoded_images['img_dash'].decode()),
                                       style={'height': img_height_top*2, 'align': 'right'})),
-                     dbc.Row([html.Img(src='data:image/png;base64,{}'.format(encoded_images['img_github'].decode()),
-                                       style={'height': img_height_top, 'align': 'right'})])],
+                     dbc.Row(html.A([html.Img(src='data:image/png;base64,{}'.format(encoded_images['img_github'].decode()),
+                                       style={'height': img_height_top, 'align': 'right'})],
+                                    href="https://github.com/nelerey/dash_app_advancedscriptingcourse"))],
                     width=2),
         ]
     ),
