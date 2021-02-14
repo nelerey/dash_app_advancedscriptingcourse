@@ -47,7 +47,7 @@ tab1_content = dbc.Card(
                 "also includes atmospheric moisture demand (potential evaporation).", html.Br(), html.Br(),
                 "In general, all ensemble members agree on increased time spent in (extremely) dry conditions."
                 " When comparing SPI and SPEI, it is clear that a strong projected increase in "
-                "evaporation leads to much strnger increases in time spent in (extreme) drought if we rely on SPEI. "
+                "evaporation leads to much stronger increases in time spent in (extreme) drought if we rely on SPEI. "
                 "An ensemble of hydrological models will help me find out what this means for the propagation of "
                 "these droughts to water resources. There are large differences between the UKCP18 RCM"
                 "ensemble members.", html.Br(),html.Br(),
