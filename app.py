@@ -25,6 +25,7 @@ from plotly.subplots import make_subplots
 external_stylesheets = [dbc.themes.SANDSTONE]
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
 
 # text tab contents (this is ugly here)
 tab1_content = dbc.Card(
@@ -292,4 +293,5 @@ def drought_classes_heatmaps(si, nm, em):
 
 
 if __name__ == '__main__':
+    # this is not used in production
     app.run_server(debug=True)
