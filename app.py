@@ -172,7 +172,11 @@ def drought_classes_heatmaps(si, nm, em):
     :param em: ensemble member of interest (int)
     :return: plotly figure object with data and layout
     """
-    datadir = "/Users/nelereyniers/phd_code/dash_app_advancedscriptingcourse/data/"
+    # settings:
+    datadir = "data/"
+    rows = 3
+    columns = 3
+
     # assertions:
     assert type(si) == str
     assert type(nm) == int
@@ -192,7 +196,7 @@ def drought_classes_heatmaps(si, nm, em):
               for k in datapaths.keys()}
     if verbose:
         print("Data loaded")
-    fig = make_subplots(rows=3, cols=3,
+    fig = make_subplots(rows=rows, cols=columns,
                         column_titles=[f"{p[0]}-{p[1]}" for p in np.array([dsdict['x'].timestart.dt.year.values,
                                                                            dsdict['x'].timestop.dt.year.values]).T],
                         row_titles=[f"Moderately dry",  # (-1>{si}>=-1.5)
@@ -210,6 +214,10 @@ def drought_classes_heatmaps(si, nm, em):
 
             fig.update_yaxes(scaleanchor='x', scaleratio=1, showticklabels=False)
     fig.update_layout(coloraxis={'colorscale': 'Oranges'})
+
+    for i in range(1, (rows * columns) + 1):
+        fig['layout'][f'yaxis{i}']['scaleanchor'] = f'x{i}'
+
     fig.update_xaxes(showticklabels=False)
     if verbose:
         print("Finished figure")
